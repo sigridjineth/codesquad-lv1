@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>배열로 구구단 구현</title>
+</head>
+
+<body>
+    <h1> 배열로 구구단 만들기 </h1>
+    <h2>
+        <script>
+            var length = 9;
+
+            function gugudan(x) {
+                var results = [];
+                for (var j = 1; j <= length; j++) {
+                    var c = x * j;
+                    results.push(c);
+                }
+                return results
+            }
+
+            function printResult(x, results) {
+                document.write("<h3>" + x + "단" + "<br>" + "</h3>")
+                for (var i = 1; i <= results.length; i++) {
+                    document.write(x + "*" + i + "=" + results[i - 1] + "<br>")
+                }
+            }
+
+            function main() {
+                for (var i = 2; i <= length; i++) {
+                    var eachresult = gugudan(i);
+                    printResult(i, eachresult);
+                }
+            }
+            main();
+        </script>
+    </h2>
+</body>
+
+</html>

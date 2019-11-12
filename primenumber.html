@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>소수를 찾아보자</title>
+</head>
+
+<body>
+    <h1>1-10000 사이의 소수를 화면에 출력해보자</h1>
+    <div id="script"></div>
+    <script>
+        var numbers = {} //객체의 선언
+        numbers.all = []; //객체 내부의 프로퍼티 배열
+        numbers.prime = []; //객체 내부의 프로퍼티 배열
+
+        numbers.isPrime = function(number) {
+            for (var i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        numbers.addAllNumber = function(max_num) {
+            for (var i = 1; i <= max_num; i++) {
+                this.all.push(i);
+            }
+        };
+
+        numbers.calcPrimes = function() {
+            for (i = 0; i <= this.all.length; i++) {
+                if (this.isPrime(this.all[i])) {
+                    this.prime.push(this.all[i]);
+                }
+            }
+        };
+
+        numbers.getAllPrimes = function() {
+            var h2 = ""
+            h2 += "<h2>전체 소수의 개수는" + this.prime.length + "</h2>\n"
+            return h2
+        }
+
+        numbers.addAllNumber(10000);
+        numbers.calcPrimes();
+        document.getElementById('script').innerHTML = numbers.getAllPrimes();
+    </script>
+    </h2>
+
+</body>
+
+</html>
