@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>객체로 구구단 만들기</title>
+</head>
+
+<body>
+    <h1>객체로 구구단 만들기</h1>
+    <script>
+        gugudan = {};
+        gugudan.length = 9;
+
+        gugudan.calculate = function(n) {
+            gugudan.result = [];
+            this.current = n;
+            for (var i = 0; i <= gugudan.length; i++) {
+                var value = (n * i);
+                this.result.push(value);
+            }
+            return gugudan.result;
+        }
+        gugudan.print = function() {
+            document.write("<h2>" + this.current + "단" + "<br>" + "</h2>")
+            for (var j = 1; j < gugudan.result.length; j++) {
+                document.write(this.current + "X" + j + "=" + this.result[j] + "<br>")
+            }
+        }
+
+        function main() {
+            for (var k = 2; k <= gugudan.length; k++) {
+                gugudan.calculate(k);
+                gugudan.print(gugudan.calculate(k));
+            }
+        }
+        main();
+    </script>
+
+</body>
+
+</html>
