@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>gugudan final!</title>
+</head>
+
+<body>
+    <script>
+        gugudan = {};
+        gugudan.strnum = [];
+        gugudan.cvtnum = [];
+        gugudan.inputNum = function() {
+            var result = prompt("구구단 숫자를 입력하세요(a, b)");
+            this.strnum[0] = result[0]; // 입력된 string 타입 데이터를 배열에 저장 
+            this.strnum[1] = result[3];
+        };
+
+        gugudan.convertNum = function() {
+            this.cvtnum[0] = Number(this.strnum[0]); // 배열에 저장된 string 타입 데이터 변환
+            this.cvtnum[1] = Number(this.strnum[1]); // 숫자로 변환한 데이터를 새 배열에 저장 
+        };
+
+        gugudan.print = function() {
+            document.write("<h1>" + "입력 숫자까지 구구단을 출력해주는 프로그램" + "</h1>");
+            for (var i = 2; i <= this.cvtnum[0]; i++) {
+                document.write("<h3>" + i + "단 출력결과" + "</h3>");
+                for (var j = 1; j <= this.cvtnum[1]; j++) {
+                    document.write(i + " * " + j + " = " + (i * j) + "<br>");
+                }
+            }
+        }
+
+        gugudan.inputNum();
+        gugudan.convertNum();
+        gugudan.print();
+    </script>
+</body>
+
+</html>

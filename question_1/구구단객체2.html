@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>객체로 구구단 만들기</title>
+</head>
+
+<body>
+    <h1>gugudan final</h1>
+    <script>
+        gugudan = {};
+        gugudan.number = [];
+        gugudan.length = 9;
+        gugudan.result = [];
+
+        gugudan.input = function() {
+            var input = prompt("희망하는 구구단을 입력하세요(a,b)");
+            var temp = input.split(",");
+            gugudan.number[0] = Number(temp[0]);
+            gugudan.number[1] = Number(temp[1]);
+        }
+        gugudan.calculate = function(n) {
+            this.current = n;
+            for (var i = 0; i <= gugudan.length; i++) {
+                var value1 = (n * i);
+                gugudan.result.push(value1);
+            }
+        }
+        gugudan.finalcal = function(n) {
+            this.current = n;
+            for (var k = 0; k <= gugudan.number[1]; k++) {
+                var value2 = n * k;
+                gugudan.result.push(value2);
+            }
+        }
+        gugudan.print = function() {
+            document.write("<h2>" + "이번에는" + this.current + "단입니다." + "</h2>")
+            for (var t = 1; t < gugudan.result.length; t++) {
+                var str = ""
+                str += this.current;
+                str += "X";
+                str += t;
+                str += "=";
+                str += gugudan.result[t];
+                str += "<br>";
+                document.write(str);
+            }
+        }
+
+        function main() {
+            gugudan.input();
+            for (var v = 2; v <= gugudan.number[0] - 1; v++) {
+                gugudan.calculate(v);
+                gugudan.print();
+                gugudan.result.length = 0;
+            }
+            v = gugudan.number[0];
+            if (v = gugudan.number[0]) {
+                gugudan.finalcal(v);
+                gugudan.print();
+                gugudan.result.length = 0;
+            }
+        }
+        main();
+    </script>
+
+</body>
+
+</html>
