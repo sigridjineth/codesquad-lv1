@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>단어 퍼즐 구현하기</title>
+</head>
+<h2>2단계 단어 퍼즐 구현하기</h2>
+<h3 id="input"></h3>
+<h3 id="buttons"></h3>
+<input type="button" id="lswap" onclick="lswap(event)" value="왼쪽으로 뒤집기">
+<input type="button" id="rswap" onclick="rswap(event)" value="오른쪽으로 뒤집기">
+<input type="button" id="push" onclick="push(event)" value="밀어내기">
+<h4 id="results"></h4>
+
+<body>
+    <script>
+        //첫 줄에는 "HELLO" 문자열 표시
+        let input = prompt("문자열을 입력하세요.");
+        let str = "";
+        var original = input.split("");
+
+        str += input;
+        document.getElementById("input").innerHTML = str;
+
+        //다음 줄에는 "H", "E", "L", "L", "O" 의 버튼 5개를 화면에 한 줄로 배치한다. 
+        //단 이 버튼은 자바스크립트를 이용해 추가한다.
+        var work = function(arr){
+            var node = document.getElementById("input");
+            node.innerHTML = "";
+
+            for (i=0; i<arr.length; i++){
+                let makebtns = document.createElement('button');
+                makebtns.innerHTML = arr[i];
+                document.getElementById("input").appendChild(makebtns);
+            };
+        };
+
+        //첫 줄의 문자열과 버튼의 문자열이 일치할 경우 화면에 "일치합니다." 
+        //그렇지 않을 경우 "일치하지 않습니다" 를 표시한다.
+        var check = function(arr){
+            if (original.join('') === arr.join('')){
+                document.getElementById("results").innerHTML = ('일치합니다.');
+            } else {
+                document.getElementById("results").innerHTML = ('일치하지 않습니다.');
+            };
+        };
+
+        window.onload = function(){
+            work(original);
+            check(original);
+        }
+
+        //다음 줄에는 "뒤집기" 버튼과 "밀어내기" 버튼을 배치
+        //밀어내기 버튼을 누를 경우 문자열이 오른쪽으로 한 칸씩 이동한다. 
+        //예를 들어 "HELLO" 상태에서 누르면 "OHELL"이 된다.
+        //같은 방식으로 왼쪽 뒤집기도 구현한다.
+        var lswap = function(){
+            var lwork = function(){
+                var split = input.split("");
+                var temp = split.shift();
+                split.push(temp);
+                return split;
+            }
+            work(lwork());
+            check(lwork());
+        };
+
+        var rswap = function(){
+            var rwork = function(){
+                var split = input.split("");
+                var temp = split.pop();
+                split.unshift(temp);
+                return split;    
+            }
+            work(rwork());
+            check(rwork());
+        };
+
+        //뒤집기 버튼을 누를 경우 문자열이 뒤집힌다. 
+        //예를 들어 "HELLO" 상태에서 누르면 "OLLEH"가 된다.
+        var push = function(){
+            var pwork = function(){
+                var split = input.split("");
+                var reversedtemp = [];
+                for (var i = split.length - 1; i>=0; i--){
+                    reversedtemp.push(split[i]);
+                }
+                return reversedtemp;
+            }
+            work(pwork());
+            check(pwork());
+        };
+    </script>
+    
+</body>
+</html>
