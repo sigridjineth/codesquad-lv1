@@ -1,6 +1,9 @@
 var Operator = function Operator(apr, idx) {
     this.apr = apr;
     this.idx = idx;
+    this.sort = function(a, b) {
+        return a[idx] - b[idx];
+    };
 };
 
 var input = {};
@@ -13,11 +16,6 @@ input.init = function() {
     var minus = new Operator("-", this.str.indexOf("-"));
     var multiply = new Operator("*", this.str.indexOf("*"));
     var divide = new Operator("/", this.str.indexOf("/"));
-
-    var sorting = Operator.sort(function(a, b) {
-        return a[idx] - b[idx];
-    });
-    sorting();
 };
 
 input.classify = function() {
@@ -37,12 +35,12 @@ input.classify = function() {
 
     for (i = 0; i <= this.operatorlist.length - 1; i++) {
         var temp = this.str().slice(0, opidx[i]);
-        valuelist.push(temp);
+        this.valuelist.push(temp);
         this.str.replace(temp, "");
         var first = number.slice(0, 1);
         this.str.replace(first, "");
     };
-    valuelist.push(this.str);
+    this.valuelist.push(this.str);
 };
 
 var calculator = {};
@@ -101,8 +99,9 @@ output.print = function(value) {
 
 function main() {
     input.init();
-    while (input.list.length != 0) {
-        input.classify();
+    Operator.sort();
+    input.classify();
+    while (input.operatorlist.length != 0) {
         calculator.order();
         output.print(calculator.calculate());
     }
