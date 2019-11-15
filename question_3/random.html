@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        button{
+        button {
             font-size: 20px;
             margin: 3px;
         }
+        
         p {
             font-size: 20px;
         }
     </style>
 </head>
+
 <body>
     <h2>4단계 진행사항 처리</h2>
-    <p id = 'progress'></p>
-    <p id = 'word1'></p>
-    <p id = 'word2'></p>
-    <p id = 'word3'></p>
-    <div id = 'buttons'>
+    <p id='progress'></p>
+    <p id='word1'></p>
+    <p id='word2'></p>
+    <p id='word3'></p>
+    <div id='buttons'>
         <button onclick="swap()">뒤집기</button>
         <button onclick="lshift()">왼쪽으로 밀어내기</button>
         <button onclick="rshift()">오른쪽으로 밀어내기</button>
         <button onclick="shuffle()">셔플하기</button>
     </div>
-    <p id = 'check'></p>
+    <p id='check'></p>
     <script src="random.js"></script>
 </body>
+
 </html>
