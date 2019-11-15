@@ -9,7 +9,8 @@ var buttons = document.getElementById('buttons');
 
 //declare game object
 var game = {
-    //'btns': []
+    'current': 0,
+    'maxPlay': 3
 };
 
 game.words = input.split(',');
@@ -49,7 +50,6 @@ game.init = function(){
     this.alignbutton();
     this.updateValid();
 }
-game.init();
 
 game.updatebutton = function(){
     word2.innerHTML = '';
@@ -98,6 +98,29 @@ game.shuffle = function(){
     }
 };
 
+game.play = function(){
+    if (this.checkValid){
+        game.init();
+        game.shuffle();
+
+        var str = "";
+        str += game.current;
+        word3.innerHTML = str;
+
+        for (i = 0; i < game.current; i++){
+            var str = "";
+            str += "O"
+        }
+        word3.innerHTML = str;
+        game.current += 1;
+    }
+
+    if (this.current == this.maxPlay){
+        alert('Thanks for your playing!');
+        break;
+    }
+};
+
 
 //main function
 var lshift = function(){
@@ -115,3 +138,14 @@ var swap = function(){
 var shuffle = function(){
     game.shuffle();
 };
+
+
+//main function
+function main(){
+    game.init();
+    while (game.current != game.maxPlay){
+        game.play();
+    }
+};
+
+main();
