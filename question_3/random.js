@@ -1,14 +1,12 @@
 //get input
 var input = prompt('10개의 단어를 입력하세요. 단어 별 구분은 comma로 합니다.');
 
-//mark progress
-var str = "";
-
 //get HTML elements
 var word1 = document.getElementById('word1');
 var word2 = document.getElementById('word2');
 var check = document.getElementById('check');
 var buttons = document.getElementById('buttons');
+var time = document.getElementById('time');
 
 //declare game object
 var game = {
@@ -16,6 +14,14 @@ var game = {
     'maxPlay': 3
 };
 
+//get time
+game.startTime = Date.now();
+var updateTime = function() {
+    var now = Date.now() - game.startTime;
+    time.innerHTML = (now / 1000) + "s";
+}
+
+//get word input
 game.words = input.split(',');
 
 //choose one word from input, and put characters into HTML
@@ -101,21 +107,28 @@ game.shuffle = function() {
     }
 };
 
+game.progress = function() {
+    var str = "";
+    game.current += 1;
+    for (i = 0; i < game.current; i++) {
+        str += "O"
+    };
+    word3.innerHTML = str;
+};
+
 game.play = function() {
     if (this.checkValid()) {
+        game.progress();
         game.choose();
         game.shuffle();
-        word3.innerHTML = str;
-
-        for (i = 0; i < game.current; i++) {
-            str += "O"
-        };
-        word3.innerHTML = str;
-        game.current += 1;
+        game.updatebutton();
     };
 
     if (game.current == game.maxPlay) {
         alert('Thanks for your playing!');
+        var now = Date.now() - game.startTime;
+        alert('Good, your record is' + now + ' ms');
+        clearInterval(time);
     };
 };
 
@@ -146,6 +159,6 @@ var shuffle = function() {
 function main() {
     game.init();
     game.shuffle();
-    game.play();
 };
 main();
+setInterval(updateTime, 50);
