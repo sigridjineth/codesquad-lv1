@@ -1,6 +1,3 @@
-//get input
-var input = prompt('10개의 단어를 입력하세요. 단어 별 구분은 comma로 합니다.');
-
 //get HTML elements
 var word1 = document.getElementById('word1');
 var word2 = document.getElementById('word2');
@@ -10,19 +7,27 @@ var time = document.getElementById('time');
 
 //declare game object
 var game = {
+    'ranklist': {},
     'current': 0,
     'maxPlay': 3
 };
+
+//get word input
+game.start = function() {
+    this.input = prompt('10개의 단어를 입력하세요. 단어 별 구분은 comma로 합니다.');
+    this.words = this.input.split(',');
+}
+
+game.name = function() {
+    this.name = prompt('플레이어의 이름을 입력하세요');
+}
 
 //get time
 game.startTime = Date.now();
 var updateTime = function() {
     var now = Date.now() - game.startTime;
     time.innerHTML = (now / 1000) + "s";
-}
-
-//get word input
-game.words = input.split(',');
+};
 
 //choose one word from input, and put characters into HTML
 game.choose = function() {
@@ -128,7 +133,28 @@ game.play = function() {
         alert('Thanks for your playing!');
         var now = Date.now() - game.startTime;
         alert('Good, your record is' + now + ' ms');
+        this.ranklist[name] = now;
         clearInterval(time);
+        game.name();
+        game.choose();
+    };
+};
+
+game.rank = function() {
+    //sorting the rank of players
+    var items = Object.keys(this.ranklist).map(function(key) {
+        return (key, this.ranklist[key]);
+    });
+    var sorting = items.sort(function(first, second) {
+        return second[1] - first[1];
+    });
+    var size = Object.keys(ranklist).length;
+    for (i = 0; i <= size; i++) {
+        sorting();
+    };
+    //show the rank of players
+    for (i = 0; i <= size; i++) {
+        alert(key + '는' + i + 1 + '등이고 기록은' + this.ranklist[key] + '입니다');
     };
 };
 
@@ -154,9 +180,13 @@ var shuffle = function() {
     game.play();
 };
 
+var rank = function() {
+    game.rank();
+}
 
 //main function
 function main() {
+    game.start();
     game.init();
     game.shuffle();
 };
