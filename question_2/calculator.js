@@ -1,9 +1,6 @@
-var Operator = function Operator(apr, idx) {
+var Operator = function(apr, idx) {
     this.apr = apr;
     this.idx = idx;
-    this.sort = function(a, b) {
-        return a[idx] - b[idx];
-    };
 };
 
 var input = {};
@@ -12,10 +9,13 @@ input.init = function() {
     var getInput = document.getElementById("input");
     this.str = getInput.value;
 
-    var plus = new Operator("+", this.str.indexOf("+"));
-    var minus = new Operator("-", this.str.indexOf("-"));
-    var multiply = new Operator("*", this.str.indexOf("*"));
-    var divide = new Operator("/", this.str.indexOf("/"));
+    this.plus = new Operator("+", this.str.indexOf("+"));
+    this.minus = new Operator("-", this.str.indexOf("-"));
+    this.multiply = new Operator("*", this.str.indexOf("*"));
+    this.divide = new Operator("/", this.str.indexOf("/"));
+
+    this.operators = [this.plus, this.minus, this.multiply, this.divide];
+
 };
 
 input.classify = function() {
@@ -23,24 +23,27 @@ input.classify = function() {
     this.operatorlist = [];
     this.operatoridxlist = [];
 
-    for (var keys in Operator) {
-        var ops = Operator[keys];
-
-        if (ops.idx == -1) {
+    for (i = 0; i < this.operators.length; i++) {
+        //classifying operators
+        var ops = this.operators[i]["apr"];
+        var opsidx = this.operators[i]["idx"];
+        if (opsidx == -1) {
             continue;
-        }
-        this.operatorlist.push(ops.apr);
-        this.operatoridxlist.push(ops.idx);
-    }
+        };
+        this.operatorlist.push(ops);
+        this.operatoridxlist.push(opsidx);
 
-    for (i = 0; i <= this.operatorlist.length - 1; i++) {
-        var temp = this.str().slice(0, opidx[i]);
+        //classifying valuelists
+        var temp = this.str.splice(0, opsidx);
+        console.log(temp);
         this.valuelist.push(temp);
         this.str.replace(temp, "");
-        var first = number.slice(0, 1);
-        this.str.replace(first, "");
     };
-    this.valuelist.push(this.str);
+
+    //processing the last of first number
+    var first = this.str.splice(0, 1);
+    this.str.replace(first, "");
+    this.valuelist.push(first);
 };
 
 var calculator = {};
@@ -59,9 +62,9 @@ calculator.order = function() {
             input.operatorlist.splice(j + 2, 1);
         } else {
             continue;
-        }
-    }
-}
+        };
+    };
+};
 
 calculator.calculate = function() {
     var ret;
@@ -94,16 +97,16 @@ var output = {};
 output.out = document.getElementById('output');
 
 output.print = function(value) {
-    this.out.innerHTML = "최종 결과값은" + value + "입니다.";
+    this.out.innerHTML = "계산 결과값은 " + value + " 입니다.";
 };
 
 function main() {
     input.init();
-    Operator.sort();
+    //Operator.sort(Operator());
     input.classify();
-    while (input.operatorlist.length != 0) {
-        calculator.order();
-        output.print(calculator.calculate());
-    }
-}
+    //while (input.operatorlist.length != 0) {
+    //    calculator.order();
+    //    output.print(calculator.calculate());
+    //}
+};
 main();

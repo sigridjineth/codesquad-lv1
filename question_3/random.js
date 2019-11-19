@@ -7,20 +7,24 @@ var time = document.getElementById('time');
 
 //declare game object
 var game = {
-    'ranklist': {},
     'current': 0,
     'maxPlay': 3
+};
+
+var newlist = function(name, time) {
+    this.name = name;
+    this.time = time;
 };
 
 //get word input
 game.start = function() {
     this.input = prompt('10개의 단어를 입력하세요. 단어 별 구분은 comma로 합니다.');
     this.words = this.input.split(',');
-}
+};
 
 game.name = function() {
     this.name = prompt('플레이어의 이름을 입력하세요');
-}
+};
 
 //get time
 game.startTime = Date.now();
@@ -35,7 +39,7 @@ game.choose = function() {
     this.answer = this.words[index];
     this.characters = this.answer.split('');
     word1.innerHTML = this.answer;
-}
+};
 
 //align button by putting characters into HTML
 game.alignbutton = function() {
@@ -44,7 +48,7 @@ game.alignbutton = function() {
         newbutton.innerHTML = this.characters[i];
         word2.appendChild(newbutton);
         //this.btns.push(newbutton);
-    }
+    };
 };
 
 game.checkValid = function() {
@@ -63,7 +67,7 @@ game.init = function() {
     this.choose();
     this.alignbutton();
     this.updateValid();
-}
+};
 
 game.updatebutton = function() {
     word2.innerHTML = '';
@@ -92,14 +96,14 @@ game.lshift = function() {
     this.characters.push(s);
     game.updatebutton();
     game.updateValid();
-}
+};
 
 game.rshift = function() {
     var s = this.characters.pop();
     this.characters.unshift(s);
     game.updatebutton();
     game.updateValid();
-}
+};
 
 game.shuffle = function() {
     var random = Math.floor(Math.random() * 10);
@@ -134,6 +138,7 @@ game.play = function() {
         var now = Date.now() - game.startTime;
         alert('Good, your record is' + now + ' ms');
         this.ranklist[name] = now;
+
         clearInterval(time);
         game.name();
         game.choose();
@@ -141,21 +146,29 @@ game.play = function() {
 };
 
 game.rank = function() {
+    var temp1 = [];
+    var temp2 = [];
+
     //sorting the rank of players
     var items = Object.keys(this.ranklist).map(function(key) {
-        return (key, this.ranklist[key]);
+        temp1.push(key);
+        temp2.push(this.ranklist[key]);
     });
-    var sorting = items.sort(function(first, second) {
-        return second[1] - first[1];
-    });
-    var size = Object.keys(ranklist).length;
+
+    //size evaluation
+    var size = Object.keys(this.ranklist).length;
     for (i = 0; i <= size; i++) {
-        sorting();
+        //
+    };
+
+
+    for (i = 0; i <= size; i++) {
+        items.sort();
     };
     //show the rank of players
-    for (i = 0; i <= size; i++) {
-        alert(key + '는' + i + 1 + '등이고 기록은' + this.ranklist[key] + '입니다');
-    };
+    //for (i = 0; i <= size; i++) {
+    //    alert(key + '는' + i + 1 + '등이고 기록은' + this.ranklist[key] + '입니다');
+    //};
 };
 
 
@@ -182,7 +195,7 @@ var shuffle = function() {
 
 var rank = function() {
     game.rank();
-}
+};
 
 //main function
 function main() {
@@ -190,5 +203,6 @@ function main() {
     game.init();
     game.shuffle();
 };
+
 main();
 setInterval(updateTime, 50);
